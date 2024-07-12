@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "155504464034",
+    "project_id": "tezdo-e4649",
+    "storage_bucket": "tezdo-e4649.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155504464034:android:661fe35d99c61f0ebe07fb",
+        "android_client_info": {
+          "package_name": "com.example.tezdo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2ow58ISpaTChzrUEeDQfi2SOJySdBnPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
