@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tezdo/controller/home_controller.dart';
-import 'package:tezdo/view/favorites.dart';
+import 'package:tezdo/view/favorites_page.dart';
 import 'package:tezdo/view/profile_page.dart';
 import 'package:tezdo/widget/home/skeletal_loader.dart';
 import '../model/products.dart';
@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  onTap: () { 
+                  onTap: () {
                     Navigator.pop(context);
                     Get.to(() => const FavoritesPage());
                   },
@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  onTap: () { 
+                  onTap: () {
                     Navigator.pop(context);
                     Get.to(() => const ProfilePage());
                   },
@@ -80,7 +80,8 @@ class HomePage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Deals', style: Theme.of(context).textTheme.bodyLarge),
+                          Text('Deals',
+                              style: Theme.of(context).textTheme.bodyLarge),
                           CarouselWithIndicator(
                             imgList: controller.products.take(5).map((product) {
                               return {
@@ -90,11 +91,14 @@ class HomePage extends StatelessWidget {
                               };
                             }).toList(),
                             currentIndex: controller.carouselIndex,
-                            onPageChanged: (index) => controller.onPageChanged(index),
+                            onPageChanged: (index) =>
+                                controller.onPageChanged(index),
                           ),
                           const SizedBox(height: 20),
-                          Text('Categories', style: Theme.of(context).textTheme.bodyLarge),
-                          _buildCategoriesList(controller.categories, controller),
+                          Text('Categories',
+                              style: Theme.of(context).textTheme.bodyLarge),
+                          _buildCategoriesList(
+                              controller.categories, controller),
                           const SizedBox(height: 20),
                           Text(
                             'Trending Products',
@@ -120,7 +124,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoriesList(List<String> categories, HomeController controller) {
+  Widget _buildCategoriesList(
+      List<String> categories, HomeController controller) {
     return SizedBox(
       height: 50,
       child: ListView.builder(
@@ -147,28 +152,33 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildTrendingProductsList(List<Product> trendingProducts, HomeController controller) {
+  Widget _buildTrendingProductsList(
+      List<Product> trendingProducts, HomeController controller) {
     return SizedBox(
-      height: 240, 
+      height: 240,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 10),
+        separatorBuilder: (BuildContext context, int index) =>
+            const SizedBox(width: 10),
         itemCount: trendingProducts.length,
         itemBuilder: (BuildContext context, int index) {
-          return _buildProductCard(trendingProducts[index], context, controller);
+          return _buildProductCard(
+              trendingProducts[index], context, controller);
         },
       ),
     );
   }
 
-  Widget _buildProductCard(Product product, BuildContext context, HomeController controller) {
+  Widget _buildProductCard(
+      Product product, BuildContext context, HomeController controller) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: InkWell(
-        onTap: () => controller.goToDetailProduct(product.id.toString(), product),
+        onTap: () =>
+            controller.goToDetailProduct(product.id.toString(), product),
         child: SizedBox(
-          width: 250, 
+          width: 250,
           child: Padding(
             padding: const EdgeInsets.all(15),
             child: Column(
@@ -178,7 +188,8 @@ class HomePage extends StatelessWidget {
                   height: 100,
                   fit: BoxFit.cover,
                   imageUrl: product.image!,
-                  placeholder: (context, url) => const CircularProgressIndicator(),
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
                 const SizedBox(height: 10),
@@ -195,15 +206,19 @@ class HomePage extends StatelessWidget {
                     Text(
                       '\$${product.price}',
                       style: Theme.of(context).textTheme.displaySmall,
-                      textAlign: TextAlign.center, 
+                      textAlign: TextAlign.center,
                     ),
-                    IconButton(
-                      icon: Icon(
-                        controller.isFavorite(product) ? Icons.favorite : Icons.favorite_border,
-                        color: controller.isFavorite(product) ? Colors.red : Colors.grey,
-                      ),
-                      onPressed: () => controller.toggleFavorite(product),
-                    ),
+                    Obx(() => IconButton(
+                          icon: Icon(
+                            controller.isFavorite(product)
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: controller.isFavorite(product)
+                                ? Colors.red
+                                : Colors.grey,
+                          ),
+                          onPressed: () => controller.toggleFavorite(product),
+                        )),
                   ],
                 ),
               ],

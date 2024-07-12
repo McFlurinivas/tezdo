@@ -83,7 +83,9 @@ class HomeController extends FSGetXController {
         .doc(userId)
         .collection('favorites')
         .get();
-    _favorites.value = snapshot.docs.map((doc) => Product.fromDocument(doc)).toList();
+    _favorites.value =
+        snapshot.docs.map((doc) => Product.fromDocument(doc)).toList();
+    update(['favorites']);
   }
 
   void filterProductsByCategory(String category) {
@@ -105,15 +107,16 @@ class HomeController extends FSGetXController {
 
   void toggleFavorite(Product product) async {
     final userId = _user!.uid;
-    if (_favorites.contains(product)) {
-      _favorites.remove(product);
+    if (_favorites.any((fav) => fav.id == product.id)) {
+      _favorites.removeWhere((fav) => fav.id == product.id);
       await _removeFavoriteFromFirebase(userId, product);
     } else {
       _favorites.add(product);
       await _addFavoriteToFirebase(userId, product);
     }
     update(['favorites']);
-  }
+}
+
 
   void addToCart(Product product) async {
     User? user = FirebaseAuth.instance.currentUser;
@@ -139,7 +142,8 @@ class HomeController extends FSGetXController {
         .set(product.toMap());
   }
 
-  Future<void> _removeFavoriteFromFirebase(String userId, Product product) async {
+  Future<void> _removeFavoriteFromFirebase(
+      String userId, Product product) async {
     await _firestore
         .collection('users')
         .doc(userId)
@@ -149,7 +153,7 @@ class HomeController extends FSGetXController {
   }
 
   bool isFavorite(Product product) {
-    return _favorites.contains(product);
+    return _favorites.any((fav) => fav.id == product.id);
   }
 
   void onChangeAsc() {
