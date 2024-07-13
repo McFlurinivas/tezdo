@@ -40,7 +40,7 @@ class Network {
           debugPrint(response.body.replaceAll('\'', ''));
           json = jsonDecode(response.body.replaceAll('\'', ''));
         } else {
-          debugPrint('Ha ocurrido un error:');
+          debugPrint('An error has oocured');
           debugPrint(response.statusCode.toString());
           json = {};
         }
@@ -85,7 +85,7 @@ class Network {
           debugPrint(response.body.replaceAll('\'', ''));
           json = jsonDecode(response.body);
         } else {
-          debugPrint('Ha ocurrido un error:');
+          debugPrint('An error has occured: ');
           debugPrint(response.statusCode.toString());
           json = {};
         }

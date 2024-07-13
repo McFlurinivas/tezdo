@@ -49,7 +49,7 @@ class HomeController extends FSGetXController {
   Future<void> _getProducts() async {
     JsonResponseList response = await getProducts(
       EndPoint.products,
-      params: _isAsc.value ? {'sort': 'desc'} : {},
+      //params: _isAsc.value ? {'sort': 'desc'} : {},
     );
 
     if (response.statusCode == 200) {
@@ -156,12 +156,12 @@ class HomeController extends FSGetXController {
     return _favorites.any((fav) => fav.id == product.id);
   }
 
-  void onChangeAsc() {
-    _isAsc.value = !_isAsc.value;
-    _isLoading.value = true;
-    update();
-    _getProducts();
-  }
+  // void onChangeAsc() {
+  //   _isAsc.value = !_isAsc.value;
+  //   _isLoading.value = true;
+  //   update();
+  //   _getProducts();
+  // }
 
   void onCloseSession() {
     _auth.signOut().then((_) {

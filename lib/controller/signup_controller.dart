@@ -76,7 +76,7 @@ class SignUpController extends GetxController {
 
     _isLoading = true;
     update(['BtnSignUp']);
-    FocusScope.of(Get.context!).unfocus();
+    FocusScope.of(Get.context!).unfocus();//removes keyboard
 
     try {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
